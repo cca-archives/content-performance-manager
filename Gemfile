@@ -65,3 +65,9 @@ group :development, :test do
   gem 'timecop'
   gem 'webmock'
 end
+
+
+# firebreak
+gem "readingtime"
+gem "odyssey"
+gem "rack-cors"

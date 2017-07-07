@@ -13,6 +13,11 @@ Rails.application.routes.draw do
     end
   end
 
+  get "content/stats", to: "content_metrics#stats"
+  get "content/show", to: "content_metrics#show"
+
+  resources :content_metrics, only: %w(index)
+
   namespace :audits do
     get '/', to: "audits#index"
     resource :report, only: :show

@@ -1,0 +1,141 @@
+<div class="stats">
+  <style>
+    .stats {
+      width: 600px;
+    }
+
+    .column-left {
+      float: left;
+      width: 33%;
+    }
+
+    .column-right {
+      float: right;
+      width: 33%;
+    }
+
+    .column-center {
+      display: inline-block;
+      width: 33%;
+    }
+
+    .core {
+      display: block;
+      padding-bottom: 5px;
+    }
+
+    .warnings {
+      padding-bottom: 10px;
+    }
+
+    .warnings .callout {
+      padding: 3px;
+    }
+
+  </style>
+
+  <div>
+    <div class="core">
+      <div class="column-left">
+        <table class="table table-bordered">
+          <tbody>
+          <% if @metrics.score.to_i < 50 %>
+              <tr class="callout callout-danger">
+          <% else %>
+              <tr class="callout callout-success">
+          <% end %>
+          <td>Readability:</td>
+          <td><%= @metrics.score %></td>
+          </tr>
+          <tr>
+            <td>Reading time:</td>
+            <td><%= @metrics.reading_time %></td>
+          </tr>
+          <tr>
+            <td>Length:</td>
+            <td><%= @metrics.string_length %></td>
+          </tr>
+          <tr>
+            <td>Words:</td>
+            <td><%= @metrics.word_count %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column-center">
+        <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <td>Number of PDFs:</td>
+            <td><%= @content_item.number_of_pdfs %></td>
+          </tr>
+          <% if @content_item.audit.present? %>
+              <tr>
+          <% else %>
+              <tr class="callout callout-danger">
+          <% end %>
+          <td>Audited?</td>
+          <td><%= link_to " #{@content_item.audit.present?}", "http://content-performance-manager.dev.gov.uk/content_items/#{@content_item.id}/audit" %></td>
+          </tr>
+          <% if @metrics.warnings.count == 0 %>
+              <tr>
+          <% else %>
+              <tr class="callout callout-danger">
+          <% end %>
+          <td>Warnings</td>
+          <td>
+
+            <%= @metrics.warnings.count %>
+          </td>
+          </tr>
+          <tr>
+            <td>Support</td>
+            <td>
+              <%= link_to "FeedEx", "#{Plek.find('support')}/anonymous_feedback?path=#{@content_item.base_path}" %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column-right">
+        <table class="table table-bordered">
+          <% if @content_item.one_month_page_views.to_i.zero? %>
+              <tr class="callout callout-danger">
+          <% else %>
+              <tr class="callout callout-success">
+          <% end %>
+          <td>Visits last 1 months:</td>
+          <td><%= @content_item.one_month_page_views %></td>
+          </tr>
+          <% if @content_item.six_months_page_views.to_i.zero? %>
+              <tr class="callout callout-danger">
+          <% else %>
+              <tr class="callout callout-success">
+          <% end %>
+          <td>Visits last 6 months:</td>
+          <td><%= @content_item.six_months_page_views %></td>
+          </tr>
+          <tr>
+            <td>Number of PDFs:</td>
+            <td><%= @content_item.number_of_pdfs %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="warnings">
+      <% @metrics.warnings.each do |rule| %>
+          <div class="callout callout-danger">
+            <%= raw rule %>
+            <%  if rule.can_fix? %>
+                <%= link_to "Fix me", "#edition_body_input", onclick: rule.fixme%>
+            <%  end %>
+          </div>
+      <% end %>
+    </div>
+    <div class="warnings">
+      <div class="callout callout-info">
+        Readability + GOV.Uk Guidelines + Popularity = <strong><%= @metrics.gds_points %></strong>
+      </div>
+    </div>
+  </div>
+</div>
