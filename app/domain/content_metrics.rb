@@ -27,6 +27,6 @@ class ContentMetrics
   private
 
   def calculate_gds_points
-    (3 * self.score - (15 * self.warnings.count))
+    (3 * self.score - (15 * self.warnings.count)).to_i
   end
 end

@@ -39,7 +39,7 @@
       <div class="column-left">
         <table class="table table-bordered">
           <tbody>
-          <% if @metrics.score.to_i < 50 %>
+          <% if @metrics.score.to_i < 30 %>
               <tr class="callout callout-danger">
           <% else %>
               <tr class="callout callout-success">
@@ -74,7 +74,7 @@
           <% else %>
               <tr class="callout callout-danger">
           <% end %>
-          <td>Audited?</td>
+          <td>Reviewed?</td>
           <td><%= link_to " #{@content_item.audit.present?}", "http://content-performance-manager.dev.gov.uk/content_items/#{@content_item.id}/audit" %></td>
           </tr>
           <% if @metrics.warnings.count == 0 %>
