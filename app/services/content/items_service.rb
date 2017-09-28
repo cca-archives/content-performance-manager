@@ -15,7 +15,11 @@ class Content::ItemsService
       end
   end
 
-  def fetch(content_id, locale)
+  def fetch_attributes(content_id, locale, version = nil)
+    client.fetch(content_id, locale, version)
+  end
+
+  def fetch(content_id, locale, version = nil)
     attribute_names = %i[
       public_updated_at
       base_path
@@ -26,9 +30,10 @@ class Content::ItemsService
       details
       publishing_app
       locale
+      user_facing_version
+      content
     ]
-    all_attributes = client.fetch(content_id, locale)
-
+    all_attributes = client.fetch(content_id, locale, version)
     Content::Item.new(all_attributes.slice(*attribute_names))
   end
 

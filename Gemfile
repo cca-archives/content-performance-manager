@@ -11,6 +11,8 @@ gem 'govuk_app_config'
 gem 'govuk_sidekiq'
 gem 'plek'
 
+gem "html_to_plain_text"
+
 # Third party gems
 gem 'activerecord-import'
 gem 'draper'
@@ -71,3 +73,4 @@ end
 gem "readingtime"
 gem "odyssey"
 gem "rack-cors"
+gem "redcarpet"

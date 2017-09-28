@@ -1,6 +1,12 @@
 require_relative "./factories/link_factory"
 
 FactoryGirl.define do
+  factory :metric do
+    content_id "MyString"
+    code "MyString"
+    value 1
+    day "2017-09-27"
+  end
   factory :content_item, class: Content::Item do
     transient do
       organisations nil

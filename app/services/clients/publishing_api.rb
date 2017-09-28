@@ -26,8 +26,12 @@ module Clients
         .flatten
     end
 
-    def fetch(content_id, locale)
-      normalise(publishing_api.get_content(content_id, locale: locale))
+    def fetch(content_id, locale, version = nil)
+      if version
+        normalise(publishing_api.get_content(content_id, locale: locale, version: version))
+      else
+        normalise(publishing_api.get_content(content_id, locale: locale))
+      end
     end
 
     def links(content_id)
@@ -53,7 +57,7 @@ module Clients
       end
     end
 
-  private
+    private
 
     def build_base_query(fields, options)
       {

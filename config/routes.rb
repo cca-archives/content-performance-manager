@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :metrics
   root to: 'content/items#index'
 
   namespace :content do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912052927) do
+ActiveRecord::Schema.define(version: 20170927124810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170912052927) do
     t.integer "six_months_page_views", default: 0
     t.string "publishing_app"
     t.string "locale", null: false
+    t.integer "user_facing_version"
     t.index ["content_id"], name: "index_content_items_on_content_id", unique: true
     t.index ["title"], name: "index_content_items_on_title"
   end
@@ -71,6 +72,15 @@ ActiveRecord::Schema.define(version: 20170912052927) do
     t.index ["link_type"], name: "index_links_on_link_type"
     t.index ["source_content_id"], name: "index_links_on_source_content_id"
     t.index ["target_content_id"], name: "index_links_on_target_content_id"
+  end
+
+  create_table "metrics", force: :cascade do |t|
+    t.string "content_id"
+    t.string "code"
+    t.integer "value"
+    t.date "day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|

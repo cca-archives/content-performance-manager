@@ -17,7 +17,7 @@ class Content::Item < ApplicationRecord
     )
   end
 
-  attr_accessor :details
+  attr_accessor :details, :content
 
   def to_param
     content_id
