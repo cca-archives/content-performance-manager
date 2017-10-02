@@ -125,11 +125,19 @@
     <div class="warnings">
       <% @metrics.warnings.each do |rule| %>
           <div class="callout callout-danger">
-            <%= raw rule %>
-            <%  if rule.can_fix? %>
-                <%= link_to "Fix me", "#edition_body_input", onclick: rule.fixme%>
-            <%  end %>
+            <% unless rule.focus? %>
+
+                <%= raw rule %>
+            <% end %>
+            <% if rule.can_fix? %>
+                <%= link_to "Fix me", "#edition_body_input", onclick: rule.fixme %>
+            <% end %>
           </div>
+          <% if rule.focus? %>
+              <div class="callout callout-warning">
+                <%= raw rule %>
+              </div>
+          <% end %>
       <% end %>
     </div>
     <div class="warnings">

@@ -14,6 +14,10 @@ class ReplaceWord
     true
   end
 
+  def focus?
+    false
+  end
+
   def fixme
     "var $textArea = $(document).find('#edition_body'); $textArea.val($textArea.val().replace('#{word}','#{new_word}'));"
   end

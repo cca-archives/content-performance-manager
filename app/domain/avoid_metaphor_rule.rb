@@ -13,6 +13,10 @@ class AvoidMetaphorRule
     false
   end
 
+  def focus?
+    false
+  end
+
   def to_s
    "The word <strong>#{word}</strong> is a metaphor"
   end

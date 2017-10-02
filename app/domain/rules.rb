@@ -48,6 +48,10 @@ class Rules
     self.rules << ReplaceWord.new("Alternative Provision", "alternative provision")
     self.rules << ReplaceWord.new("Alternative provision", "alternative provision")
     self.rules << ReplaceWord.new("attendance allowance", "Attendance Allowance")
+
+    self.rules << Focus.new("academy", "Only use upper case when referring to the name of an academy, like Mossbourne Community Academy")
+    self.rules << Focus.new("Access to Work", "Upper case when referring directly to the actual programme, otherwise use lower case.")
+    self.rules << Focus.new("agile","Upper case when referring to the Agile Manifesto and principles and processes, otherwise use lower case.")
   end
 
   def run(content)

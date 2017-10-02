@@ -13,6 +13,10 @@ class BannedWordRule
     false
   end
 
+  def focus?
+    false
+  end
+
   def to_s
    "The word <strong>#{word}</strong> belongs is listed as a banned word"
   end
