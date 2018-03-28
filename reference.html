@@ -6,11 +6,7 @@
     <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>
-          GOV.UK Content Performance API v1.0.0
-        -
-      GOV.UK Content API
-    </title>
+    <title>GOV.UK Content Performance API v1.0.0</title>
 
     <!--[if gt IE 8]><!--><link href="stylesheets/screen.css" rel="stylesheet" media="screen" /><!--<![endif]-->
     <!--[if lte IE 8]><link href="stylesheets/screen-old-ie.css" rel="stylesheet" media="screen" /><![endif]-->
@@ -24,7 +20,7 @@
   <body>
     <div class="app-pane">
       <div class="app-pane__header toc-open-disabled">
-        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#content" class="skip-link">Skip to main content</a>
 
         <header class="header header--full-width">
   <div class="header__container">
@@ -75,7 +71,7 @@
           <div class="toc" data-module="table-of-contents">
             <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
             <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
-                <ul>
+              <ul>
   <li>
     <a href="#gov-uk-content-performance-api-v1-0-0">GOV.UK Content Performance API v1.0.0</a>
     <ul>
@@ -85,19 +81,135 @@
     </ul>
   </li>
   <li>
-    <a href="#metrics">Metrics</a>
+    <a href="#authentication">Authentication</a>
+  </li>
+  <li>
+    <a href="#metadata">Metadata</a>
     <ul>
       <li>
-        <a href="#get-metrics-content-id">GET /metrics/{content_id}</a>
+        <a href="#get-metrics">GET /metrics/</a>
+        <ul>
+          <li>
+            <a href="#example-request">Example Request</a>
+          </li>
+          <li>
+            <a href="#example-response">Example Response</a>
+          </li>
+          <li>
+            <a href="#responses">Responses</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#aggregations">Aggregations</a>
+    <ul>
+      <li>
+        <a href="#get-metrics-metric-content-id">GET /metrics/{metric}/{content_id}</a>
         <ul>
           <li>
             <a href="#parameters">Parameters</a>
           </li>
           <li>
-            <a href="#example-request">Example Request</a>
+            <a href="#get-metrics-metric-content-id-example-request">Example Request</a>
           </li>
           <li>
-            <a href="#responses">Responses</a>
+            <a href="#get-metrics-metric-content-id-example-response">Example Response</a>
+          </li>
+          <li>
+            <a href="#get-metrics-metric-content-id-responses">Responses</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#time-series">Time series</a>
+    <ul>
+      <li>
+        <a href="#get-metrics-metric-content-id-time-series">GET /metrics/{metric}/{content_id}/time-series</a>
+        <ul>
+          <li>
+            <a href="#get-metrics-metric-content-id-time-series-parameters">Parameters</a>
+          </li>
+          <li>
+            <a href="#get-metrics-metric-content-id-time-series-example-request">Example Request</a>
+          </li>
+          <li>
+            <a href="#get-metrics-metric-content-id-time-series-example-response">Example Response</a>
+          </li>
+          <li>
+            <a href="#get-metrics-metric-content-id-time-series-responses">Responses</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#objects">Objects</a>
+    <ul>
+      <li>
+        <a href="#metric">Metric</a>
+        <ul>
+          <li>
+            <a href="#fields">Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#summary">Summary</a>
+        <ul>
+          <li>
+            <a href="#summary-fields">Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#value">Value</a>
+        <ul>
+          <li>
+            <a href="#value-fields">Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#timeseries">TimeSeries</a>
+        <ul>
+          <li>
+            <a href="#timeseries-fields">Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#metricsresponse">MetricsResponse</a>
+        <ul>
+          <li>
+            <a href="#metricsresponse-fields">Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#timeseriesresponse">TimeSeriesResponse</a>
+        <ul>
+          <li>
+            <a href="#timeseriesresponse-fields">Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#summaryresponse">SummaryResponse</a>
+        <ul>
+          <li>
+            <a href="#summaryresponse-fields">Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#errorresponse">ErrorResponse</a>
+        <ul>
+          <li>
+            <a href="#errorresponse-fields">Fields</a>
           </li>
         </ul>
       </li>
@@ -110,7 +222,7 @@
         </div>
 
         <div class="app-pane__content toc-open-disabled">
-          <main id="main-content" class="technical-documentation" data-module="anchored-headings">
+          <main id="content" class="technical-documentation" data-module="anchored-headings">
             <h1 id="gov-uk-content-performance-api-v1-0-0">GOV.UK Content Performance API v1.0.0</h1>
 <p>GOV.UK Content Performance API provides metrics about GOV.UK content.</p>
 
@@ -120,16 +232,69 @@
 <p>All requests to this API should be prefixed with the following URL:</p>
 
 <p><strong>https://content-performance-manager.publishing.service.gov.uk/api/</strong></p>
-<h1 id="metrics">Metrics</h1><h2 id="get-metrics-content-id">GET /metrics/{content_id}</h2>
-<p><em>Get metric values for a single content item over a date range.</em></p>
+<h1 id="authentication">Authentication</h1>
+<ul>
+<li>Bearer authentication (header format: <code>Authorization: Bearer &lt;your-token-here&gt;</code>)</li>
+</ul>
+<h1 id="metadata">Metadata</h1><h2 id="get-metrics">GET /metrics/</h2>
+<p><em>List all available metrics.</em></p>
 
-<p>Returns an array of values. Each item represents a metric value at
-a single point in time.</p>
+<p>Returns a list of metrics that the API can return.</p>
 
-<p>This request does not require authentication.</p>
+<p>This request requires authentication.</p>
+<h3 id="example-request">Example Request</h3><div class="highlight"><pre class="highlight shell"><code>curl <span class="s1">'https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics/'</span>
+</code></pre></div><h3 id="example-response">Example Response</h3>
+<p><details>
+<summary>Examples</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of pageviews"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pageviews"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of unique pageviews"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique_pageviews"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of reported content issues"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Feedback explorer"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feedex_comments"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of .pdf attachments"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Publishing API"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number_of_pdfs"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="responses">Responses</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Success response</td>
+<td><a href="#schemametricsresponse">MetricsResponse</a></td>
+</tr>
+
+        </table>
+      </div><h1 id="aggregations">Aggregations</h1><h2 id="get-metrics-metric-content-id">GET /metrics/{metric}/{content_id}</h2>
+<p><em>Get summarised metrics for a content item.</em></p>
+
+<p>Returns a summary of a metric based on data collected over a time period.</p>
+
+<p>This request requires authentication.</p>
 <h3 id="parameters">Parameters</h3><div class="table-container">
-      <table>
-        <tr>
+        <table>
+          <tr>
 <th>Parameter</th>
 <th>In</th>
 <th>Type</th>
@@ -144,27 +309,65 @@ a single point in time.</p>
 <td>A GOV.UK content ID. This is a UUID value as used in the Content API.</td>
 </tr>
 <tr>
+<td>metric</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The name of a metric.</td>
+</tr>
+<tr>
 <td>from</td>
 <td>query</td>
 <td>date</td>
 <td>true</td>
-<td>From date.</td>
+<td>From date in the format &lsquo;YYYY-MM-DD&rsquo;. Only data collected on or after this date will be included.</td>
 </tr>
 <tr>
 <td>to</td>
 <td>query</td>
 <td>date</td>
 <td>true</td>
-<td>To date.</td>
+<td>To date in the format &#39;YYYY-MM-DD&rsquo;. Only data collected on or before this date will be included.</td>
 </tr>
 
-      </table>
-    </div><h3 id="example-request">Example Request</h3><div class="highlight"><pre class="highlight shell"><code>curl <span class="s1">'https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics/f838c22a-b2aa-49be-bd95-153f593293a3?from=2018-02-27&amp;to=2018-02-27&amp;metric=pageviews'</span>
-</code></pre></div>
+        </table>
+      </div><h3 id="get-metrics-metric-content-id-example-request">Example Request</h3><div class="highlight"><pre class="highlight shell"><code>curl <span class="s1">'https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics/pageviews/f838c22a-b2aa-49be-bd95-153f593293a3/summary?from=2018-02-27&amp;to=2018-02-27'</span>
+</code></pre></div><h3 id="get-metrics-metric-content-id-example-response">Example Response</h3>
+<p><details>
+<summary>Examples</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One or more parameters is invalid"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invalid_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Content ID must be a UUID."</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://content-performance-api.publishing.service.gov.uk/errors/#validation-error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"x-old-ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p></details></p>
-<h3 id="responses">Responses</h3><div class="table-container">
-      <table>
-        <tr>
+<h3 id="get-metrics-metric-content-id-responses">Responses</h3><div class="table-container">
+        <table>
+          <tr>
 <th>Status</th>
 <th>Meaning</th>
 <th>Description</th>
@@ -173,18 +376,457 @@ a single point in time.</p>
 <tr>
 <td>200</td>
 <td>OK</td>
-<td>An array of items where each item represents a value of the metric at a single point in time. The array may be empty.</td>
-<td>None</td>
+<td>Success response</td>
+<td><a href="#schemasummaryresponse">SummaryResponse</a></td>
 </tr>
 <tr>
 <td>400</td>
 <td>Bad Request</td>
 <td>The API request is invalid.</td>
-<td>None</td>
+<td><a href="#schemaerrorresponse">ErrorResponse</a></td>
 </tr>
 
-      </table>
-    </div>
+        </table>
+      </div><h1 id="time-series">Time series</h1><h2 id="get-metrics-metric-content-id-time-series">GET /metrics/{metric}/{content_id}/time-series</h2>
+<p><em>Get metric values for a single content item over a date range.</em></p>
+
+<p>Returns an array of values for each metric. Each item represents a
+metric value at a single point in time.</p>
+
+<p>This request requires authentication.</p>
+<h3 id="get-metrics-metric-content-id-time-series-parameters">Parameters</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>content_id</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>A GOV.UK content ID. This is a UUID value as used in the Content API.</td>
+</tr>
+<tr>
+<td>metric</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>The name of a metric.</td>
+</tr>
+<tr>
+<td>from</td>
+<td>query</td>
+<td>date</td>
+<td>true</td>
+<td>From date in the format &#39;YYYY-MM-DD&rsquo;. Only data collected on or after this date will be returned.</td>
+</tr>
+<tr>
+<td>to</td>
+<td>query</td>
+<td>date</td>
+<td>true</td>
+<td>To date in the format &#39;YYYY-MM-DD&rsquo;. Only data collected on or before this date will be returned.</td>
+</tr>
+
+        </table>
+      </div><h3 id="get-metrics-metric-content-id-time-series-example-request">Example Request</h3><div class="highlight"><pre class="highlight shell"><code>curl <span class="s1">'https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics/f838c22a-b2aa-49be-bd95-153f593293a3/time-series?from=2018-02-27&amp;to=2018-02-27&amp;metric=pageviews'</span>
+</code></pre></div><h3 id="get-metrics-metric-content-id-time-series-example-response">Example Response</h3>
+<p><details>
+<summary>Examples</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One or more parameters is invalid"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invalid_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Content ID must be a UUID."</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://content-performance-api.publishing.service.gov.uk/errors/#validation-error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"x-old-ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="get-metrics-metric-content-id-time-series-responses">Responses</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Success response</td>
+<td><a href="#schematimeseriesresponse">TimeSeriesResponse</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request</td>
+<td>The API request is invalid.</td>
+<td><a href="#schemaerrorresponse">ErrorResponse</a></td>
+</tr>
+
+        </table>
+      </div><h1 id="objects">Objects</h1><h2 id="metric">Metric</h2>
+<p><a name="schemametric"></a></p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>metric_id</td>
+<td>string</td>
+<td>true</td>
+<td>ID to refer to the metric within the API</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>true</td>
+<td>Description of the metric</td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>false</td>
+<td>Where this metric comes from</td>
+</tr>
+
+        </table>
+      </div><h2 id="summary">Summary</h2>
+<p><a name="schemasummary"></a></p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="summary-fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>total</td>
+<td>integer</td>
+<td>true</td>
+<td>Sum of all recorded metric values within the date range.</td>
+</tr>
+<tr>
+<td>latest</td>
+<td>integer</td>
+<td>true</td>
+<td>The latest recorded metric value within the date range.</td>
+</tr>
+
+        </table>
+      </div><h2 id="value">Value</h2>
+<p><a name="schemavalue"></a></p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="value-fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>date</td>
+<td>date</td>
+<td>true</td>
+<td>Date of measurement, in the form YYYY-MM-DD.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>integer</td>
+<td>true</td>
+<td>The value of the metric.</td>
+</tr>
+
+        </table>
+      </div><h2 id="timeseries">TimeSeries</h2>
+<p><a name="schematimeseries"></a></p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="timeseries-fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>anonymous</td>
+<td>[<a href="#schemavalue">Value</a>]</td>
+<td>false</td>
+<td>A series of values for a metric.</td>
+</tr>
+
+        </table>
+      </div><h2 id="metricsresponse">MetricsResponse</h2>
+<p><a name="schemametricsresponse"></a></p>
+
+<p>A list of metrics that the API can return</p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of pageviews"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pageviews"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of unique pageviews"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique_pageviews"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of reported content issues"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Feedback explorer"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feedex_comments"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of .pdf attachments"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Publishing API"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number_of_pdfs"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="metricsresponse-fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>anonymous</td>
+<td>[<a href="#schemametric">Metric</a>]</td>
+<td>false</td>
+<td>A list of metrics that the API can return</td>
+</tr>
+
+        </table>
+      </div><h2 id="timeseriesresponse">TimeSeriesResponse</h2>
+<p><a name="schematimeseriesresponse"></a></p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="timeseriesresponse-fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>additionalProperties</td>
+<td>object</td>
+<td>false</td>
+<td>An object where each key is a metric ID and each value is a time series.</td>
+</tr>
+<tr>
+<td>additionalProperties</td>
+<td>[<a href="#schemavalue">Value</a>]</td>
+<td>false</td>
+<td>A series of values for a metric.</td>
+</tr>
+
+        </table>
+      </div><h2 id="summaryresponse">SummaryResponse</h2>
+<p><a name="schemasummaryresponse"></a></p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="summaryresponse-fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>additionalProperties</td>
+<td>object</td>
+<td>false</td>
+<td>Summary information keyed by metric ID.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>integer</td>
+<td>true</td>
+<td>Sum of all recorded metric values within the date range.</td>
+</tr>
+<tr>
+<td>latest</td>
+<td>integer</td>
+<td>true</td>
+<td>The latest recorded metric value within the date range.</td>
+</tr>
+
+        </table>
+      </div><h2 id="errorresponse">ErrorResponse</h2>
+<p><a name="schemaerrorresponse"></a></p>
+
+<p>An error response.</p>
+
+<p><details></p>
+
+<p><summary>Sample JSON</summary></p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One or more parameters is invalid"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invalid_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Content ID must be a UUID."</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://content-performance-api.publishing.service.gov.uk/errors/#validation-error"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"x-old-ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p></details></p>
+<h3 id="errorresponse-fields">Fields</h3><div class="table-container">
+        <table>
+          <tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>true</td>
+<td>A human readable summary of the error.</td>
+</tr>
+<tr>
+<td>invalid_params</td>
+<td>object</td>
+<td>false</td>
+<td>An array of error messages for each invalid parameter.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>true</td>
+<td>A URI identifying the error.</td>
+</tr>
+
+        </table>
+      </div>
           </main>
 
           <footer class="footer">

@@ -6,11 +6,7 @@
     <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>
-          About
-        -
-      GOV.UK Content API
-    </title>
+    <title>About</title>
 
     <!--[if gt IE 8]><!--><link href="stylesheets/screen.css" rel="stylesheet" media="screen" /><!--<![endif]-->
     <!--[if lte IE 8]><link href="stylesheets/screen-old-ie.css" rel="stylesheet" media="screen" /><![endif]-->
@@ -24,7 +20,7 @@
   <body>
     <div class="app-pane">
       <div class="app-pane__header toc-open-disabled">
-        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#content" class="skip-link">Skip to main content</a>
 
         <header class="header header--full-width">
   <div class="header__container">
@@ -75,27 +71,46 @@
           <div class="toc" data-module="table-of-contents">
             <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
             <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
-                <ul>
+              <ul>
   <li>
     <a href="#gov-uk-content-performance-api">GOV.UK Content Performance API</a>
     <ul>
       <li>
-        <a href="#what-you-can-do-with-this-api">What you can do with this API</a>
+        <a href="#what-does-this-api-do">What does this API do?</a>
       </li>
       <li>
-        <a href="#what-you-can-39-t-do-with-this-api">What you can’t do with this API</a>
+        <a href="#before-you-start">Before you start</a>
+        <ul>
+          <li>
+            <a href="#register-an-api-key">Register an API key</a>
+          </li>
+          <li>
+            <a href="#find-out-content-ids">Find out Content IDs</a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#getting-started">Getting Started</a>
+        <ul>
+          <li>
+            <a href="#get-a-full-list-of-available-metrics">Get a full list of available metrics</a>
+          </li>
+          <li>
+            <a href="#get-metric-data-for-a-single-piece-of-content">Get metric data for a single piece of content</a>
+          </li>
+        </ul>
       </li>
       <li>
-        <a href="#alpha-software">Alpha software</a>
+        <a href="#version">Version</a>
       </li>
       <li>
         <a href="#keep-informed">Keep informed</a>
       </li>
       <li>
-        <a href="#authentication">Authentication</a>
+        <a href="#authentication-amp-authorisation">Authentication & Authorisation</a>
+      </li>
+      <li>
+        <a href="#testing">Testing</a>
       </li>
       <li>
         <a href="#security-and-compliance">Security and compliance</a>
@@ -123,63 +138,121 @@
         </div>
 
         <div class="app-pane__content toc-open-disabled">
-          <main id="main-content" class="technical-documentation" data-module="anchored-headings">
+          <main id="content" class="technical-documentation" data-module="anchored-headings">
             <h1 id="gov-uk-content-performance-api">GOV.UK Content Performance API</h1>
 <div class="phase-tag">
   <p>
     <strong class="phase-banner">Alpha</strong>
     <span>
-      This is a trial service. <a href="#alpha-software">Find out what
+      This is a trial service. <a href="#version">Find out what
       this means</a>.
     </span>
   </p>
 </div>
-
-<p>This guide introduces the Content Performance API.</p>
-
-<p>All examples use <a href="https://curl.haxx.se/">curl</a> for interfacing with the API on
-the command line. You may prefer the structured output of using <a href="https://httpie.org/">HTTPie</a>
-or piping the curl responses through <a href="https://stedolan.github.io/jq/">jq</a>.</p>
-
-<p>GOV.UK Content API is accessed via <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> and returns data in a <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>
-format. The <a href="reference.html">reference documentation</a> provides a thorough
-overview of the endpoints and the response format.</p>
-<h2 id="what-you-can-do-with-this-api">What you can do with this API</h2>
+<h2 id="what-does-this-api-do">What does this API do?</h2>
 <p>This API provides access to metrics about the performance of GOV.UK content.
 Each metric is a time series, so you can see how the content performance has
 changed over time.</p>
-<h2 id="what-you-can-39-t-do-with-this-api">What you can&rsquo;t do with this API</h2>
+
 <p>This API does not expose the content itself. For that you should use the <a href="https://content-api.publishing.service.gov.uk">GOV.UK Content API</a>.</p>
 
 <p>Not all content is available. For example, content that is generated
 dynamically (such as through a search) is not available.</p>
-<h2 id="getting-started">Getting Started</h2>
-<p>To query the API you need to know the content ID for the piece of content you
-are interested in.</p>
+<h2 id="before-you-start">Before you start</h2><h3 id="register-an-api-key">Register an API key</h3>
+<p>Usage of GOV.UK Content Performance API currently requires <a href="#authentication-amp-authorisation">authentication</a> using an OAuth2 bearer token. Please <a href="#support">contact the team</a> first if you are interested in using the API.</p>
+<h3 id="find-out-content-ids">Find out Content IDs</h3>
+<p>To query the API you need to know the content ID for the piece of content you are interested in.</p>
 
 <p>You can find out the content ID for most GOV.UK pages using the <a href="https://content-api.publishing.service.gov.uk">GOV.UK Content API</a>.</p>
 
-<p>For example</p>
-<div class="highlight"><pre class="highlight shell"><code>curl https://www.gov.uk/api/content/vat-rates
-</code></pre></div>
-<p>Then you can use the <code>/metrics/[content-id]</code> endpoint to query the number of page views:</p>
-<div class="highlight"><pre class="highlight shell"><code>http://content-performance-manager.dev.gov.uk/api/v1/metrics/f838c22a-b2aa-49be-bd95-153f593293a3?from<span class="o">=</span>2018-02-28&amp;to<span class="o">=</span>2018-02-28&amp;metric<span class="o">=</span>pageviews
+<p>For example, for https://www.gov.uk/vat-rates, you can query the Content API like this:</p>
+<div class="highlight"><pre class="highlight shell"><code>curl https://www.gov.uk/api/content/vat-rates | python <span class="nt">-m</span> json.tool <span class="c"># Pretty print JSON</span>
+</code></pre></div><div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"analytics_identifier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"base_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/vat-rates"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f838c22a-b2aa-49be-bd95-153f593293a3"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content_purpose_document_supertype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guidance"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content_purpose_supergroup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guidance_and_regulation"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content_purpose_subgroup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guidance"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"document_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"answer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email_document_supertype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"other"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"first_published_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2011-09-12T15:43:03.000+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"government_document_supertype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"other"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"en"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"navigation_document_supertype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guidance"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"need_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"phase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"public_updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-12T14:55:23.000+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"publishing_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"publisher"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"publishing_scheduled_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"rendering_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"government-frontend"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"scheduled_publishing_delay_seconds"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"schema_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"answer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"search_user_need_document_supertype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"core"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VAT rates"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-26T16:21:14.213Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_journey_document_supertype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thing"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"withdrawn_notice"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"publishing_request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3592-1504179295.816-10.3.3.1-410"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Current VAT rates - standard 20% and rates for reduced rate and zero-rated items"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The value of <code>content_id</code> is the value you need to pass to this API.</p>
+<h2 id="getting-started">Getting Started</h2><h3 id="get-a-full-list-of-available-metrics">Get a full list of available metrics</h3>
+<p>The exact metrics provided by the API may change over time. To retrieve the full list:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>curl -H 'Authorization: Bearer your-token-here' https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics | python -m json.tool
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>[
+{
+  "description": "Number of pageviews",
+  "source": "Google Analytics",
+  "metric_id": "pageviews"
+},
+{
+  "description": "Number of unique pageviews",
+  "source": "Google Analytics",
+  "metric_id": "unique_pageviews"
+},
+{
+  "description": "Number of reported content issues",
+  "source": "Feedback explorer",
+  "metric_id": "feedex_comments"
+},
+{
+  "description": "Number of .pdf attachments",
+  "source": "Publishing API",
+  "metric_id": "number_of_pdfs"
+},
+...
+]
+</code></pre></div><h3 id="get-metric-data-for-a-single-piece-of-content">Get metric data for a single piece of content</h3>
+<p>You can use the <code>/metrics/[metric-id]/[content-id]/</code> endpoint to get the value of any metric; for example, the number of page views.</p>
+
+<p>To summarise the recorded data over a requested time frame:</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-H</span> <span class="s1">'Authorization: Bearer your-token-here'</span> https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics/f838c22a-b2aa-49be-bd95-153f593293a3?from<span class="o">=</span>2018-02-28&amp;to<span class="o">=</span>2018-02-28&amp;metric<span class="o">=</span>pageviews
 </code></pre></div>
 <p>The <code>from</code> and <code>to</code> query parameters specify the date range to query.</p>
-<h2 id="alpha-software">Alpha software</h2>
+
+<p>To get data points for each day in the requested time frame:</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-H</span> <span class="s1">'Authorization: Bearer your-token-here'</span> https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics/time-series/f838c22a-b2aa-49be-bd95-153f593293a3?from<span class="o">=</span>2018-02-28&amp;to<span class="o">=</span>2018-02-28&amp;metric<span class="o">=</span>pageviews
+</code></pre></div><h2 id="version">Version</h2>
 <p>GOV.UK Content Performance API is currently alpha software and is likely to
 change significantly between versions.</p>
 
 <p>This means that you may use the API and build applications that use
-it, but live services should not rely on it.</p>
+it, but live services should not rely on this API or the data provided by it.</p>
 
 <p>As we learn from feedback we may make changes to the software.
 We will communicate those via our <a href="#keep-informed">mailing list</a>.</p>
 <h2 id="keep-informed">Keep informed</h2>
 <p>We intend to use a mailing list to communicate any breaking changes or updates to
 the support status of this API. This will be linked from this documentation.</p>
-<h2 id="authentication">Authentication</h2>
-<p>Usage of GOV.UK Content Performance API does not require authentication.</p>
+<h2 id="authentication-amp-authorisation">Authentication &amp; Authorisation</h2>
+<p>To authenticate, include an Authorization header like the following:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>Authorization: Bearer your-token-here
+</code></pre></div><h2 id="testing">Testing</h2>
+<p>There is no sandbox environment provided for testing. </p>
 <h2 id="security-and-compliance">Security and compliance</h2><h3 id="reporting-vulnerabilities">Reporting vulnerabilities</h3>
 <p>If you believe there is a security issue with GOV.UK Content Performance API, please
 <a href="#support">contact us immediately</a>.</p>
@@ -191,11 +264,11 @@ Hypertext Transfer Protocol Secure (HTTPS), which involves the Transport Layer
 Security (TLS) protocol, is used by the platform to provide secure connections.</p>
 <h2 id="rate-limiting">Rate limiting</h2>
 <p>There is a maximum limit of 10 requests per second per client. If you exceed
-this your request won&rsquo;t be processed until the limit is no longer exceeded
-and you may see timeout errors.</p>
+this your request won&rsquo;t be processed and you will receive a response with HTTP status code 429 (too many requests).</p>
 
-<p>We think this should be sufficient for all users of GOV.UK Content Performance API but
-if you believe you need the limit increasing you can <a href="#support">contact support</a>.</p>
+<p>Your application should handle this exception by retrying the request at a later time.</p>
+
+<p><a href="#support">Contact support</a> if you want to increase this limit.</p>
 <h2 id="support">Support</h2>
 <p>If you experience any issues or have questions regarding GOV.UK Content Performance API
 please:</p>
