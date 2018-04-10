@@ -246,28 +246,9 @@
 </code></pre></div><h3 id="example-response">Example Response</h3>
 <p><details>
 <summary>Examples</summary></p>
-<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of pageviews"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pageviews"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of unique pageviews"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique_pageviews"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of reported content issues"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Feedback explorer"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feedex_comments"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of .pdf attachments"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Publishing API"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number_of_pdfs"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/MetricsExample"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p></details></p>
 <h3 id="responses">Responses</h3><div class="table-container">
@@ -336,32 +317,11 @@
 <p><details>
 <summary>Examples</summary></p>
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One or more parameters is invalid"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"invalid_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"Content ID must be a UUID."</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://content-performance-api.publishing.service.gov.uk/errors/#validation-error"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"x-old-ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
+  </span><span class="s2">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p></details></p>
@@ -438,36 +398,11 @@ metric value at a single point in time.</p>
 <p><details>
 <summary>Examples</summary></p>
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One or more parameters is invalid"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"invalid_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"Content ID must be a UUID."</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://content-performance-api.publishing.service.gov.uk/errors/#validation-error"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"x-old-ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
+  </span><span class="s2">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p></details></p>
@@ -609,10 +544,7 @@ metric value at a single point in time.</p>
 
 <p><summary>Sample JSON</summary></p>
 <div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">{}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p></details></p>
@@ -640,28 +572,9 @@ metric value at a single point in time.</p>
 <p><details></p>
 
 <p><summary>Sample JSON</summary></p>
-<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of pageviews"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pageviews"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of unique pageviews"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google Analytics"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique_pageviews"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of reported content issues"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Feedback explorer"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"feedex_comments"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number of .pdf attachments"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Publishing API"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"metric_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number_of_pdfs"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/MetricsExample"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p></details></p>
 <h3 id="metricsresponse-fields">Fields</h3><div class="table-container">
@@ -687,18 +600,8 @@ metric value at a single point in time.</p>
 
 <p><summary>Sample JSON</summary></p>
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p></details></p>
@@ -716,12 +619,6 @@ metric value at a single point in time.</p>
 <td>false</td>
 <td>An object where each key is a metric ID and each value is a time series.</td>
 </tr>
-<tr>
-<td>additionalProperties</td>
-<td>[<a href="#schemavalue">Value</a>]</td>
-<td>false</td>
-<td>A series of values for a metric.</td>
-</tr>
 
         </table>
       </div><h2 id="summaryresponse">SummaryResponse</h2>
@@ -731,14 +628,8 @@ metric value at a single point in time.</p>
 
 <p><summary>Sample JSON</summary></p>
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"latest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"property1"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"property2"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p></details></p>
@@ -756,18 +647,6 @@ metric value at a single point in time.</p>
 <td>false</td>
 <td>Summary information keyed by metric ID.</td>
 </tr>
-<tr>
-<td>total</td>
-<td>integer</td>
-<td>true</td>
-<td>Sum of all recorded metric values within the date range.</td>
-</tr>
-<tr>
-<td>latest</td>
-<td>integer</td>
-<td>true</td>
-<td>The latest recorded metric value within the date range.</td>
-</tr>
 
         </table>
       </div><h2 id="errorresponse">ErrorResponse</h2>
@@ -779,22 +658,7 @@ metric value at a single point in time.</p>
 
 <p><summary>Sample JSON</summary></p>
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One or more parameters is invalid"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"invalid_params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"can't be blank"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"Dates should use the format YYYY-MM-DD"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"Content ID must be a UUID."</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://content-performance-api.publishing.service.gov.uk/errors/#validation-error"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"x-old-ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
+  </span><span class="s2">"$ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#/components/examples/ErrorExample"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p></details></p>

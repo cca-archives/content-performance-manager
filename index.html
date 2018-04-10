@@ -79,10 +79,27 @@
         <a href="#what-does-this-api-do">What does this API do?</a>
       </li>
       <li>
+        <a href="#rate-limiting">Rate limiting</a>
+      </li>
+      <li>
+        <a href="#version">Version</a>
+      </li>
+      <li>
         <a href="#before-you-start">Before you start</a>
         <ul>
           <li>
             <a href="#register-an-api-key">Register an API key</a>
+            <ul>
+              <li>
+                <a href="#gov-uk-users">GOV.UK users:</a>
+              </li>
+              <li>
+                <a href="#gds-users">GDS users:</a>
+              </li>
+              <li>
+                <a href="#government-users">Government users:</a>
+              </li>
+            </ul>
           </li>
           <li>
             <a href="#find-out-content-ids">Find out Content IDs</a>
@@ -90,24 +107,21 @@
         </ul>
       </li>
       <li>
-        <a href="#getting-started">Getting Started</a>
+        <a href="#getting-started">Getting started</a>
         <ul>
           <li>
             <a href="#get-a-full-list-of-available-metrics">Get a full list of available metrics</a>
           </li>
           <li>
-            <a href="#get-metric-data-for-a-single-piece-of-content">Get metric data for a single piece of content</a>
+            <a href="#get-metrics-data-for-a-single-piece-of-content">Get metrics data for a single piece of content</a>
           </li>
         </ul>
       </li>
       <li>
-        <a href="#version">Version</a>
+        <a href="#api-reference">API reference</a>
       </li>
       <li>
-        <a href="#keep-informed">Keep informed</a>
-      </li>
-      <li>
-        <a href="#authentication-amp-authorisation">Authentication & Authorisation</a>
+        <a href="#authentication-and-authorisation">Authentication and authorisation</a>
       </li>
       <li>
         <a href="#testing">Testing</a>
@@ -118,13 +132,10 @@
           <li>
             <a href="#reporting-vulnerabilities">Reporting vulnerabilities</a>
           </li>
-          <li>
-            <a href="#https">HTTPS</a>
-          </li>
         </ul>
       </li>
       <li>
-        <a href="#rate-limiting">Rate limiting</a>
+        <a href="#security-guidelines">Security guidelines</a>
       </li>
       <li>
         <a href="#support">Support</a>
@@ -150,22 +161,40 @@
   </p>
 </div>
 <h2 id="what-does-this-api-do">What does this API do?</h2>
-<p>This API provides access to metrics about the performance of GOV.UK content.
-Each metric is a time series, so you can see how the content performance has
-changed over time.</p>
+<p>This API provides access to time series metrics data about the performance of GOV.UK content. Examples of metrics include unique page views and number of PDF attachments. Refer to the <a href="/#getting-started">getting started section</a> for a complete list of metrics.</p>
 
-<p>This API does not expose the content itself. For that you should use the <a href="https://content-api.publishing.service.gov.uk">GOV.UK Content API</a>.</p>
+<p>This API does not expose the content itself. Use the <a href="https://content-api.publishing.service.gov.uk">GOV.UK Content API</a> to access the content.</p>
+<h2 id="rate-limiting">Rate limiting</h2>
+<p>There is a limit of 10 requests per second per client. All requests over this limit will not be processed, and you will receive a response with <code>HTTP status code 429 (too many requests)</code>.</p>
 
-<p>Not all content is available. For example, content that is generated
-dynamically (such as through a search) is not available.</p>
+<p>Your application should handle this exception by retrying the request at a later time.</p>
+
+<p><a href="http://dev.gov.uk:4567/#support">Contact support</a> if you want to increase this limit.</p>
+<h2 id="version">Version</h2>
+<p>GOV.UK Content Performance API is currently in alpha and is likely to change between versions.</p>
+
+<p>You may use the API and build applications that use it, but live services should not currently rely on the API or the data it provides.</p>
 <h2 id="before-you-start">Before you start</h2><h3 id="register-an-api-key">Register an API key</h3>
-<p>Usage of GOV.UK Content Performance API currently requires <a href="#authentication-amp-authorisation">authentication</a> using an OAuth2 bearer token. Please <a href="#support">contact the team</a> first if you are interested in using the API.</p>
+<p>Using GOV.UK Content Performance API currently requires <a href="/#authentication-amp-authorisation">authentication</a> using an OAuth2 bearer token.</p>
+<h4 id="gov-uk-users">GOV.UK users:</h4>
+<ol>
+<li>Go to <a href="https://signon.publishing.service.gov.uk/">GOV.UK Signon</a>.</li>
+<li>Click <code>API Users</code>.</li>
+<li>Click <code>Create API user button</code>.</li>
+<li>Create the API user.</li>
+<li>Click <code>Add application token</code> and select <code>Content Performance Manager</code> from the list.</li>
+<li>Copy the bearer token.</li>
+</ol>
+<h4 id="gds-users">GDS users:</h4>
+<p>Contact us through #govuk-developers on <a href="https://govuk.slack.com">GOV.UK Slack</a>.</p>
+<h4 id="government-users">Government users:</h4>
+<p>Contact the GOV.UK Content Performance API team through <a href="https://www.zendesk.co.uk/">Zendesk</a>.</p>
 <h3 id="find-out-content-ids">Find out Content IDs</h3>
-<p>To query the API you need to know the content ID for the piece of content you are interested in.</p>
+<p>To query the API, you need to know the content ID for the piece of content you are interested in.</p>
 
-<p>You can find out the content ID for most GOV.UK pages using the <a href="https://content-api.publishing.service.gov.uk">GOV.UK Content API</a>.</p>
+<p>You can find out the content ID for GOV.UK pages using the <a href="https://content-api.publishing.service.gov.uk">GOV.UK Content API</a>.</p>
 
-<p>For example, for https://www.gov.uk/vat-rates, you can query the Content API like this:</p>
+<p>For example, for https://www.gov.uk/vat-rates, you can query the Content API using the following code:</p>
 <div class="highlight"><pre class="highlight shell"><code>curl https://www.gov.uk/api/content/vat-rates | python <span class="nt">-m</span> json.tool <span class="c"># Pretty print JSON</span>
 </code></pre></div><div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"analytics_identifier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -199,8 +228,8 @@ dynamically (such as through a search) is not available.</p>
   </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>The value of <code>content_id</code> is the value you need to pass to this API.</p>
-<h2 id="getting-started">Getting Started</h2><h3 id="get-a-full-list-of-available-metrics">Get a full list of available metrics</h3>
+<p>Pass the content_id value to the content performance API.</p>
+<h2 id="getting-started">Getting started</h2><h3 id="get-a-full-list-of-available-metrics">Get a full list of available metrics</h3>
 <p>The exact metrics provided by the API may change over time. To retrieve the full list:</p>
 <div class="highlight"><pre class="highlight plaintext"><code>curl -H 'Authorization: Bearer your-token-here' https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics | python -m json.tool
 </code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>[
@@ -226,7 +255,7 @@ dynamically (such as through a search) is not available.</p>
 },
 ...
 ]
-</code></pre></div><h3 id="get-metric-data-for-a-single-piece-of-content">Get metric data for a single piece of content</h3>
+</code></pre></div><h3 id="get-metrics-data-for-a-single-piece-of-content">Get metrics data for a single piece of content</h3>
 <p>You can use the <code>/metrics/[metric-id]/[content-id]/</code> endpoint to get the value of any metric; for example, the number of page views.</p>
 
 <p>To summarise the recorded data over a requested time frame:</p>
@@ -236,45 +265,27 @@ dynamically (such as through a search) is not available.</p>
 
 <p>To get data points for each day in the requested time frame:</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-H</span> <span class="s1">'Authorization: Bearer your-token-here'</span> https://content-performance-manager.publishing.service.gov.uk/api/v1/metrics/time-series/f838c22a-b2aa-49be-bd95-153f593293a3?from<span class="o">=</span>2018-02-28&amp;to<span class="o">=</span>2018-02-28&amp;metric<span class="o">=</span>pageviews
-</code></pre></div><h2 id="version">Version</h2>
-<p>GOV.UK Content Performance API is currently alpha software and is likely to
-change significantly between versions.</p>
+</code></pre></div><h2 id="api-reference">API reference</h2>
+<p>The GOV.UK Content API is accessed using HTTP and returns data in a JSON format. The <a href="https://content-performance-api.publishing.service.gov.uk/reference.html#gov-uk-content-performance-api-v1-0-0">reference documentation</a> details the endpoints, methods and responses.</p>
 
-<p>This means that you may use the API and build applications that use
-it, but live services should not rely on this API or the data provided by it.</p>
-
-<p>As we learn from feedback we may make changes to the software.
-We will communicate those via our <a href="#keep-informed">mailing list</a>.</p>
-<h2 id="keep-informed">Keep informed</h2>
-<p>We intend to use a mailing list to communicate any breaking changes or updates to
-the support status of this API. This will be linked from this documentation.</p>
-<h2 id="authentication-amp-authorisation">Authentication &amp; Authorisation</h2>
+<p>All examples are written in curl.</p>
+<h2 id="authentication-and-authorisation">Authentication and authorisation</h2>
 <p>To authenticate, include an Authorization header like the following:</p>
 <div class="highlight"><pre class="highlight plaintext"><code>Authorization: Bearer your-token-here
 </code></pre></div><h2 id="testing">Testing</h2>
-<p>There is no sandbox environment provided for testing. </p>
+<p>You can test your integration in the live environment. There is no sandbox environment provided for testing.</p>
 <h2 id="security-and-compliance">Security and compliance</h2><h3 id="reporting-vulnerabilities">Reporting vulnerabilities</h3>
-<p>If you believe there is a security issue with GOV.UK Content Performance API, please
-<a href="#support">contact us immediately</a>.</p>
+<p>If you believe there is a security issue with GOV.UK Content Performance API, please <a href="#support">contact us immediately</a>.</p>
 
 <p>Please don’t disclose the suspected breach publicly until it has been fixed.</p>
-<h3 id="https">HTTPS</h3>
-<p>GOV.UK Content Performance API follows government HTTPS security guidelines. The
-Hypertext Transfer Protocol Secure (HTTPS), which involves the Transport Layer
-Security (TLS) protocol, is used by the platform to provide secure connections.</p>
-<h2 id="rate-limiting">Rate limiting</h2>
-<p>There is a maximum limit of 10 requests per second per client. If you exceed
-this your request won&rsquo;t be processed and you will receive a response with HTTP status code 429 (too many requests).</p>
-
-<p>Your application should handle this exception by retrying the request at a later time.</p>
-
-<p><a href="#support">Contact support</a> if you want to increase this limit.</p>
+<h2 id="security-guidelines">Security guidelines</h2>
+<p><a href="https://content-performance-api.publishing.service.gov.uk/#gov-uk-content-performance-api">GOV.UK Content Performance API</a> follows <a href="https://www.ncsc.gov.uk/guidance/tls-external-facing-services">government HTTPS security guidelines</a> for external facing services and uses HTTPS to provide secure connections.</p>
 <h2 id="support">Support</h2>
 <p>If you experience any issues or have questions regarding GOV.UK Content Performance API
 please:</p>
 
 <ul>
-<li><strong>If you are a government department:</strong> Raise a ticket with <a href="https://support.publishing.service.gov.uk">GOV.UK Support</a></li>
+<li><strong>If you are a government department:</strong> Raise a ticket with <a href="http://dev.gov.uk:4567/#Support">GOV.UK Support</a></li>
 <li><strong>Otherwise:</strong> <a href="https://www.gov.uk/contact/govuk">Contact GOV.UK</a> with your query</li>
 </ul>
 
