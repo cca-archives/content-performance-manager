@@ -20,7 +20,7 @@ private
   end
 
   def transform(raw_data)
-    all_items = raw_data.map do |item|
+    raw_data.map do |item|
       {
         content_id: item[:content_id],
         base_path: item[:base_path],
@@ -29,8 +29,6 @@ private
         latest: true,
       }
     end
-
-    all_items.uniq
   end
 
   def load(items)
