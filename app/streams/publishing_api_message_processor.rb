@@ -34,7 +34,7 @@ class PublishingApiMessageProcessor
     end
   end
 
-private
+  private
 
   attr_reader :content_id
   attr_reader :base_path
@@ -44,12 +44,12 @@ private
 
   def handle_existing(item)
     case routing_key
-    when /major|minor/
-      handle_new_version(item)
-    when /unpublish/
-      handle_unpublish(item)
-    else
-      handle_existing_version(item)
+      when /major|minor/
+        handle_new_version(item)
+      when /unpublish/
+        handle_unpublish(item)
+      else
+        handle_existing_version(item)
     end
   end
 
