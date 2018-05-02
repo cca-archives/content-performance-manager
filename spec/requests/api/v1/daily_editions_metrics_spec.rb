@@ -48,13 +48,13 @@ RSpec.describe '/api/v1/metrics/', type: :request do
     get "/api/v1/metrics/readability_score/#{content_id}/time-series", params: { from: '2018-01-13', to: '2018-01-15' }
 
     json = JSON.parse(response.body)
-    expect(json.deep_symbolize_keys).to eq({
+    expect(json.deep_symbolize_keys).to eq(
       readability_score: [
         { date: '2018-01-13', value: 123 },
         { date: '2018-01-14', value: 5 },
         { date: '2018-01-15', value: 5 },
       ]
-    })
+    )
   end
 
   def api_reponse(metric_name)
