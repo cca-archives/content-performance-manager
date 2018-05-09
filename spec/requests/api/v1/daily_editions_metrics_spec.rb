@@ -10,8 +10,6 @@ RSpec.describe '/api/v1/metrics/', type: :request do
   let!(:day4) { create :dimensions_date, date: Date.new(2018, 1, 16) }
   let!(:content_id) { SecureRandom.uuid }
 
-  let!(:item_non_english) { create :dimensions_item, content_id: content_id, locale: 'de' }
-
   before do
     item_day1 = create :dimensions_item, content_id: content_id, locale: 'en', latest: true
     item_day2 = create :dimensions_item, content_id: content_id, locale: 'en', latest: true
@@ -21,10 +19,7 @@ RSpec.describe '/api/v1/metrics/', type: :request do
 
     create :dimensions_item, content_id: content_id, locale: 'en'
 
-    item_non_english.update number_of_pdfs: 200, number_of_word_files: 100
-
     create :metric, dimensions_item: item_day1, dimensions_date: day1
-    create :metric, dimensions_item: item_non_english, dimensions_date: day2, pageviews: 10, feedex_comments: 10
     create :metric, dimensions_item: item_day2, dimensions_date: day2
     create :metric, dimensions_item: item_day2, dimensions_date: day3
     create :metric, dimensions_item: item_day2, dimensions_date: day4
