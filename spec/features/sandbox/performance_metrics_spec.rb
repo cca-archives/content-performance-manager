@@ -28,22 +28,17 @@ RSpec.feature 'Performance metrics', type: :feature do
   end
 
   context 'Performance metrics' do
-    let(:item1) { create :dimensions_item, content_id: 'id1', locale: 'en' }
-    let(:item2) { create :dimensions_item, content_id: 'id2', locale: 'en' }
+    let(:item1) { create :dimensions_item }
+    let(:item2) { create :dimensions_item }
 
     metrics = %w(
        pageviews
-       unique_pageviews
-       feedex_comments
-       is_this_useful_yes
-       is_this_useful_no
-       number_of_internal_searches
       )
 
     metrics.each do |metric_name|
       scenario "Show Stats for #{metric_name}" do
         create :metric, dimensions_item: item1, dimensions_date: day0, metric_name => 10
-        create :metric, dimensions_item: item1, dimensions_date: day1, metric_name => 10
+        create :metric, dimensions_item: item2, dimensions_date: day1, metric_name => 10
 
         visit '/sandbox'
 
