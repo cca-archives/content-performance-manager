@@ -11,7 +11,7 @@ class SandboxController < ApplicationController
           .by_organisation_id(organisation)
 
         @metrics =
-          if is_content_metric?
+          if is_edition_metric?
             @metrics.with_edition_metrics.run
           else
             @metrics.run
@@ -67,7 +67,7 @@ private
       :spell_count, :string_length, :word_count, :metric)
   end
 
-  def is_content_metric?
+  def is_edition_metric?
     Metric.content_metrics.any? { |metric| params[metric] == 'on' }
   end
 end

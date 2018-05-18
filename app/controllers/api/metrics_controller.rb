@@ -24,7 +24,7 @@ private
       .by_content_id(content_id)
       .by_locale('en')
 
-    if Metric.is_content_metric?(metric)
+    if Metric.is_edition_metric?(metric)
       series
         .with_edition_metrics
         .order('dimensions_dates.date asc')
