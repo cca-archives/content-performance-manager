@@ -16,7 +16,7 @@ class Items::PreloadItemsProcessor
 private
 
   def extract
-    Items::Clients::PublishingAPI.new.fetch_all(%w[content_id base_path locale])
+    Items::Clients::PublishingAPI.new.fetch_all(%w[content_id base_path locale schema])
   end
 
   def transform(raw_data)
@@ -29,6 +29,8 @@ private
         latest: true,
       }
     end
+
+    handle_guides
 
     all_items.uniq
   end

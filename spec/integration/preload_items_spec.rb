@@ -12,31 +12,74 @@ RSpec.describe 'Initial load from publishing api' do
     end
   end
 
+  context 'when the content item has no subpages' do
+    let(:editions) do
+      [
+        { content_id: 'cont-1', base_path: '/one', locale: 'en' },
+        { content_id: 'cont-1', base_path: '/one.de', locale: 'de' },
+        { content_id: 'cont-3', base_path: '/two', locale: 'en' },
+      ]
+    end
 
-  let(:editions) do
-    [
-      { content_id: 'cont-1', base_path: '/one', locale: 'en' },
-      { content_id: 'cont-1', base_path: '/one.de', locale: 'de' },
-      { content_id: 'cont-3', base_path: '/two', locale: 'en' },
-    ]
+    before :each do
+      publishing_api_get_editions(editions, fields: %i[base_path content_id locale], per_page: 50, states: ['published'])
+    end
+
+    it 'stores all published items including all locales' do
+      stub_content_item_for_path('/one', 'cont-1', 'new title')
+      stub_content_item_for_path('/one.de', 'cont-1', 'new title.de')
+      stub_content_item_for_path('/two', 'cont-3', 'new title 2')
+
+      Items::PreloadItemsProcessor.process
+
+      expect(Dimensions::Item.where(content_id: 'cont-1').count).to eq(2)
+      expect(Dimensions::Item.where(locale: 'en').count).to eq(2)
+
+      expect(Dimensions::Item.pluck(:title)).to match_array(['new title', 'new title.de', 'new title 2'])
+    end
   end
 
-  before :each do
-    publishing_api_get_editions(editions, fields: %i[base_path content_id locale], per_page: 50, states: ['published'])
-  end
+  context 'when the content item has multiple subpages' do
+    let(:editions) do
+      [
+        { content_id: 'cont-1', base_path: '/base-path', locale: 'en' },
+      ]
+    end
 
-  it 'stores all published items including all locales' do
-    stub_content_item_for_path('/one', 'cont-1', 'new title')
-    stub_content_item_for_path('/one.de', 'cont-1', 'new title.de')
-    stub_content_item_for_path('/two', 'cont-3', 'new title 2')
+    before :each do
+      publishing_api_get_editions(editions, fields: %i[base_path content_id locale], per_page: 50, states: ['published'])
+    end
 
+    context 'when the content item is a guide' do
+      it 'We store a single item per page' do
+        payload = GovukSchemas::RandomExample.for_schema(frontend_schema: 'guide') do |payload|
+          payload.merge!('base_path' => '/base-path')
+          payload.merge!('content_id' => 'a10455ed-4af6-457c-9687-9e9fdfbc63af')
+          payload['details'].merge!('parts' => [
+            {
+              'title' => 'a-title-1',
+              'slug' => '/a-slug-1',
+              'body' => 'a-body-1',
+            },
+            {
+              'title' => 'a-title-2',
+              'slug' => '/a-slug-2',
+              'body' => 'a-body-2',
+            },
+          ])
+        end
 
-    Items::PreloadItemsProcessor.process
+        content_store_has_item('/base-path', payload, {})
 
-    expect(Dimensions::Item.where(content_id: 'cont-1').count).to eq(2)
-    expect(Dimensions::Item.where(locale: 'en').count).to eq(2)
+        Items::PreloadItemsProcessor.process
 
-    expect(Dimensions::Item.pluck(:title)).to match_array(['new title', 'new title.de', 'new title 2'])
+        expect(Dimensions::Item.where(base_path: '/base-path').count).to eq(1)
+        expect(Dimensions::Item.where(document_type: 'guide').count).to eq(3)
+        expect(Dimensions::Item.where(content_id: 'a10455ed-4af6-457c-9687-9e9fdfbc63af').count).to eq(3)
+      end
+
+      it 'the basepath has the guide path inside'
+    end
   end
 
   def stub_content_item_for_path(base_path, content_id, new_title)
